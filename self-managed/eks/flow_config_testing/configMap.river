@@ -1,0 +1,38 @@
+//Metrics scraping sources
+discovery.kubernetes "discover_pods" {
+  role = "pod"
+  //role = "service"
+  namespaces {
+    //Search within the same namespace Grafana agent is in?
+    own_namespace = false
+    //Namespaces to search
+    names         = ["default","kube-system"]
+    }
+}
+discovery.kubernetes "discover_envoy_sidecars" {
+  role = "pod"
+  //role = "service"
+  namespaces {
+    //Search within the same namespace Grafana agent is in?
+    own_namespace = false
+    //Namespaces to search
+    names         = ["default","kube-system"]
+    }
+}
+
+//Metrics scraping targets
+prometheus.scrape "scrape_pods" {
+  targets    = discovery.kubernetes.discover_pods.targets
+  forward_to = [prometheus.remote_write.prometheus_server.receiver]
+}
+prometheus.scrape "scrape_envoy_sidecars" {
+  targets    = discovery.kubernetes.discover_envoy_sidecars.targets
+  forward_to = [prometheus.remote_write.prometheus_server.receiver]
+}
+
+//Metrics scraping destinations
+prometheus.remote_write "prometheus_server" {
+  endpoint {
+    url = "http://prometheus-server.grafana.svc.cluster.local:80/api/prom/push"
+  }
+}

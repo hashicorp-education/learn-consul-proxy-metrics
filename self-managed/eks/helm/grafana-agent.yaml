@@ -6,7 +6,26 @@ agent:
     # -- Create a new ConfigMap for the config file.
     create: true
     # -- Content to assign to the new ConfigMap.  This is passed into `tpl` allowing for templating from values.
-    content: ''
+    content: |
+      prometheus.remote_write "prometheus_server" {
+        endpoint {
+          url = "http://prometheus-server.grafana.svc.cluster.local:80/api/prom/push"
+        }
+      }
+      discovery.kubernetes "discover_pods" {
+        role = "pod"
+        //role = "service"
+        namespaces {
+          //Search within the same namespace Grafana agent is in?
+          own_namespace = false
+          //Namespaces to search
+          names         = ["default","kube-system"]
+          }
+      }
+      prometheus.scrape "scrape_pods" {
+        targets    = discovery.kubernetes.discover_pods.targets
+        forward_to = [prometheus.remote_write.prometheus_server.receiver]
+      }
 
     # -- Name of existing ConfigMap to use. Used when create is false.
     name: null

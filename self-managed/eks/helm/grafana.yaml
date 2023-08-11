@@ -55,7 +55,7 @@ datasources:
       - name: Prometheus
         type: prometheus
         orgId: 1
-        url: http://mimir-nginx.grafana.svc.cluster.local:80
+        url: http://prometheus-server.grafana.svc.cluster.local:80
         access: proxy
         isDefault: false
         jsonData:
@@ -64,7 +64,7 @@ datasources:
       - name: Loki
         type: loki
         access: proxy
-        url: http://loki.default.svc.cluster.local:3100/
+        url: http://loki.grafana.svc.cluster.local:3100/
         editable: true
         isDefault: true
 
