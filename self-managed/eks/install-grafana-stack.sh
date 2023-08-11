@@ -11,8 +11,7 @@ kubectl rollout status statefulset loki --namespace grafana --timeout=300s && \
 #kubectl rollout status statefulset mimir --namespace grafana --timeout=300s && \
 
 helm install --values helm/prometheus.yaml prometheus prometheus-community/prometheus --version "15.5.3" --namespace grafana && \
-kubectl rollout status deployment prometheus-server --namespace default --timeout=300s && \
-helm i
+kubectl rollout status deployment prometheus-server --namespace grafana --timeout=300s && \
 
 #helm install grafana-agent --values helm/grafana-agent.yaml grafana/grafana-agent --version "0.35.3" && \
 helm install grafana-agent --values helm/grafana-agent.yaml grafana/grafana-agent 
