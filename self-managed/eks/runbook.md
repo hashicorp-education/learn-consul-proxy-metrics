@@ -4,7 +4,9 @@ terraform apply --auto-approve
 
 aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw kubernetes_cluster_id)
 
-helm install --values helm/values-v1.yaml consul hashicorp/consul --create-namespace --namespace consul --version "1.2.0"
+consul-k8s install -config-file=helm/values-v1.yaml
+# OR
+helm install --values helm/values-v1.yaml consul hashicorp/consul --create-namespace --namespace consul --version "1.2.1"
 
 kubectl apply --filename hashicups/
 
@@ -15,26 +17,22 @@ export CONSUL_APIGW_ADDR=http://$(kubectl get svc/api-gateway -o json | jq -r '.
 
 consul catalog services
 
-kubectl apply -f proxy/proxy-defaults.yaml
+# no longer needed for metrics/logs with grafana agent? Still need for envoy spans.
+# kubectl apply -f proxy/proxy-defaults.yaml
+# kubectl delete --filename hashicups/ && \
+# kubectl apply --filename hashicups/
 
-kubectl delete --filename hashicups/ && \
-kubectl apply --filename hashicups/
-
+# Do this within Terraform? Any value of teaching this?
 ./install-grafana-stack.sh
 
+# For troubleshooting and educating internal teams
 kubectl port-forward svc/grafana-agent 8080:80
 
+export GRAFANA_URL=http://$(kubectl get svc/grafana --namespace grafana -o json | jq -r '.status.loadBalancer.ingress[0].hostname')
+
+echo $GRAFANA_URL
+# Go to Grafana URL
+# Check out metrics/logs/traces
 
 echo $CONSUL_APIGW_ADDR
-# Go to API gateway URL and see only frontend part of application is available
-
-cp -f hashicups-ecs/ecs-services-and-tasks-with-consul.tf ecs-services-and-tasks.tf
-
-terraform init
-terraform apply --auto-approve
-
-consul catalog services
-# notice now all (6) of the hashicups microservices are in the mesh
-
-echo $CONSUL_APIGW_ADDR
-# Go to API gateway URL and see the whole application works
+# Go to API gateway URL and explore HashiCups to generate traffic

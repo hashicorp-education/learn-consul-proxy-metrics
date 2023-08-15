@@ -41,7 +41,7 @@ ui:
     # The metrics provider specification.
     provider: "prometheus"
     # The URL of the prometheus metrics server.
-    baseURL: http://mimir.default.svc.cluster.local
+    baseURL: http://mimir-nginx.grafana.svc.cluster.local:80/prometheus
 # Configures and installs the automatic Consul Connect sidecar injector.
 connectInject:
   enabled: true

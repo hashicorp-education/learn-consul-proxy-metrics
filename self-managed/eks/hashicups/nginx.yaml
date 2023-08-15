@@ -64,6 +64,10 @@ data:
           proxy_pass http://public-api:8080;
         }
 
+        location /nginx_status {
+            stub_status;
+        }
+
         error_page   500 502 503 504  /50x.html;
         location = /50x.html {
           root   /usr/share/nginx/html;
@@ -103,9 +107,10 @@ spec:
         service: nginx
         app: nginx
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "9102"
         consul.hashicorp.com/connect-inject: "true"
+        consul.hashicorp.com/enable-metrics-merging: "true"
+        consul.hashicorp.com/service-metrics-port: "9113"
+        #consul.hashicorp.com/service-metrics-path: "/metrics"
     spec:
       serviceAccountName: nginx
       containers:
@@ -116,6 +121,34 @@ spec:
           volumeMounts:
             - name: nginx-config
               mountPath: /etc/nginx
+        - name: jaeger-agent
+          image: jaegertracing/jaeger-agent:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 5775
+            name: zk-compact-trft
+            protocol: UDP
+          - containerPort: 5778
+            name: config-rest
+            protocol: TCP
+          - containerPort: 6831
+            name: jg-compact-trft
+            protocol: UDP
+          - containerPort: 6832
+            name: jg-binary-trft
+            protocol: UDP
+          - containerPort: 14271
+            name: admin-http
+            protocol: TCP
+          args:
+          - --reporter.grpc.host-port=dns:///grafana-agent.default.svc.cluster.local:14250
+          - --reporter.type=grpc
+        - name: nginx-exporter
+          image: 'nginx/nginx-prometheus-exporter:0.10.0'
+          args:
+            - '-nginx.scrape-uri=http://localhost:80/nginx_status'
+          ports:
+            - containerPort: 9113
       volumes:
         - name: nginx-config
           configMap:

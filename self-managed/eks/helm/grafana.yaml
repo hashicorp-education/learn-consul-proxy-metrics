@@ -1,3 +1,6 @@
+# Do not use this configuration in production.
+# It is for demonstration purposes only.
+
 env:
   GF_EXPLORE_ENABLED: true
   GF_PANELS_DISABLE_SANITIZE_HTML: true
@@ -52,22 +55,32 @@ datasources:
   datasources.yaml:
     apiVersion: 1
     datasources:
-      - name: Prometheus
-        type: prometheus
-        orgId: 1
-        url: http://prometheus-server.grafana.svc.cluster.local:80
-        access: proxy
-        isDefault: false
-        jsonData:
-          timeInterval: 5s
-        editable: true
       - name: Loki
         type: loki
+        orgId: 1
         access: proxy
         url: http://loki.grafana.svc.cluster.local:3100/
         editable: true
+        isDefault: false
+      - name: Mimir
+        type: prometheus
+        access: proxy
+        orgId: 1
+        url: http://mimir-nginx.grafana.svc.cluster.local:80/prometheus
+        basicAuth: false
+        version: 1
+        editable: true
         isDefault: true
-
+      - name: Tempo
+        type: tempo
+        access: proxy
+        orgId: 1
+        url: http://tempo.grafana.svc.cluster.local:3100/
+        basicAuth: false
+        version: 1
+        editable: true
+        isDefault: false
+      
 dashboardProviders:
   dashboardproviders.yaml:
     apiVersion: 1
