@@ -1,12 +1,11 @@
 terraform init
 terraform apply --auto-approve
-# wait 15 minutes for build
+# wait 10-15 minutes for build
 
 aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw kubernetes_cluster_id)
 
-export CONSUL_HTTP_TOKEN=$(kubectl get --namespace consul secrets/consul-bootstrap-acl-token --template={{.data.token}} | base64 -d) && \
-export CONSUL_HTTP_ADDR=https://$(kubectl get services/consul-ui --namespace consul -o jsonpath='{.status.loadBalancer.ingress[0].hostname}') && \
-export CONSUL_HTTP_SSL_VERIFY=false
+export CONSUL_HTTP_TOKEN=$(terraform output -raw consul_root_token) && \
+export CONSUL_HTTP_ADDR=$(terraform output -raw consul_url)
 
 # Notice that Consul services exist
 consul catalog services

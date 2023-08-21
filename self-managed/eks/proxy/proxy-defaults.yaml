@@ -33,7 +33,7 @@ spec:
                   "endpoint":{
                     "address":{
                       "socket_address":{
-                        "address":"grafana-agent.default.svc.cluster.local",
+                        "address":"tempo.observability.svc.cluster.local",
                         "port_value":9411,
                         "protocol":"TCP"
                       }
