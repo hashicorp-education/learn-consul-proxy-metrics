@@ -21,11 +21,12 @@ echo $CONSUL_APIGW_ADDR
 # Explore HashiCups to generate traffic
 
 
-
 # For troubleshooting
 kubectl port-forward svc/prometheus-server -n observability 8080:80
 
+
 echo $CONSUL_HTTP_ADDR
 # check out Consul
+
 consul-k8s upgrade -config-file=helm/consul-v2.yaml
 # upgrade Consul

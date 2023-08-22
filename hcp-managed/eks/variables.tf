@@ -3,9 +3,9 @@
 ################################################################################
 
 variable "name" {
-  description = "Tutorial name"
+  description = "Resource prefix name"
   type        = string
-  default     = "learn-consul-gs"
+  default     = "learn-consul"
 }
 
 variable "vpc_region" {
@@ -36,6 +36,12 @@ variable "datacenter" {
   default     = "dc1"
 }
 
+variable "consul_helm_filename" {
+  type        = string
+  description = "The name of the Consul helm values template file"
+  default     = "consul-v1.tpl"
+}
+
 ################################################################################
 # Observability
 ################################################################################
@@ -59,7 +65,7 @@ variable "grafana_chart_version" {
 variable "cluster_id" {
   type        = string
   description = "The name of your HCP Consul cluster"
-  default     = "learn-consul-ecs"
+  default     = "learn-consul"
 }
 
 variable "hvn_region" {
@@ -71,7 +77,7 @@ variable "hvn_region" {
 variable "hvn_id" {
   type        = string
   description = "The name of your HCP HVN"
-  default     = "learn-consul-ecs-hvn"
+  default     = "learn-consul-hvn"
 }
 
 variable "hvn_cidr_block" {

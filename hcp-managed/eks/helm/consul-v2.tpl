@@ -17,6 +17,13 @@ global:
   # Enable TLS
   tls:
     enabled: true
+  # Exposes Prometheus metrics for the Consul service mesh and sidecars.
+  metrics:
+    enabled: true
+    # Enables Consul servers and clients metrics.
+    enableAgentMetrics: true
+    # Configures the retention time for metrics in Consul servers and clients.
+    agentMetricsRetentionTime: "1m"
 
 externalServers:
   enabled: true
@@ -37,3 +44,6 @@ connectInject:
     managedGatewayClass:
       serviceType: LoadBalancer
   default: true
+  # Enables metrics for Consul Connect sidecars.
+  metrics:
+    defaultEnabled: true

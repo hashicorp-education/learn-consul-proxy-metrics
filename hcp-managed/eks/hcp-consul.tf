@@ -1,6 +1,6 @@
 # HCP HVN definition
 resource "hcp_hvn" "main" {
-  hvn_id         = var.hvn_id
+  hvn_id         = local.name
   cloud_provider = "aws"
   region         = var.hvn_region
   cidr_block     = var.hvn_cidr_block
@@ -8,7 +8,7 @@ resource "hcp_hvn" "main" {
 
 # HCP Consul cluster definition
 resource "hcp_consul_cluster" "main" {
-  cluster_id      = var.cluster_id
+  cluster_id      = local.name
   hvn_id          = hcp_hvn.main.hvn_id
   public_endpoint = true
   tier            = var.tier

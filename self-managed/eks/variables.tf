@@ -5,7 +5,7 @@
 variable "name" {
   description = "Tutorial name"
   type        = string
-  default     = "learn-consul-gs"
+  default     = "learn-consul"
 }
 
 variable "vpc_region" {

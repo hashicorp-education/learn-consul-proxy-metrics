@@ -31,7 +31,7 @@ resource "helm_release" "consul" {
   namespace  = "consul"
 
   values = [
-    templatefile("${path.module}/helm/consul-v1.tpl", {
+    templatefile("${path.module}/helm/${var.consul_helm_filename}", {
       datacenter          = hcp_consul_cluster.main.datacenter
       # strip out url scheme from the public url
       consul_hosts        = substr(hcp_consul_cluster.main.consul_public_endpoint_url, 8, -1)
@@ -42,7 +42,8 @@ resource "helm_release" "consul" {
     })
   ]
 
-  depends_on = [module.eks.eks_managed_node_groups, 
+  depends_on = [module.eks.eks_managed_node_groups,
+                module.eks.aws_eks_addon,
                 kubernetes_namespace.consul, 
                 aws_secretsmanager_secret.bootstrap_token, 
                 aws_secretsmanager_secret.ca_cert,
