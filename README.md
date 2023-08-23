@@ -6,4 +6,4 @@ In this tutorial, you will use Consul proxy metrics to enhance the health and pe
 
 # Tutorial URL
 
-https://developer.hashicorp.com/consul/tutorials/
+https://developer.hashicorp.com/consul/tutorials/service-mesh-observability/consul-proxy-metrics

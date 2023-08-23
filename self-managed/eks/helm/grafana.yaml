@@ -93,3 +93,7 @@ dashboards:
       url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/hashicups-monitoring.json
     envoy-performance:
       url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/envoy-performance.json
+    hashicups-health-monitoring:
+      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/hashicups-health-monitoring.json
+    hashicups-performance-monitoring:
+      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/hashicups-performance-monitoring.json

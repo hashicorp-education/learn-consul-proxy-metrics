@@ -23,11 +23,13 @@ global:
     enableAgentMetrics: true
     # Configures the retention time for metrics in Consul servers and clients.
     agentMetricsRetentionTime: "1m"
+
 # Configures values that configure the Consul server cluster.
 server:
   enabled: true
   # The number of server agents to run. This determines the fault tolerance of the cluster.
   replicas: 3
+
 # Contains values that configure the Consul UI.
 ui:
   enabled: true
@@ -42,12 +44,10 @@ ui:
     provider: "prometheus"
     # The URL of the prometheus metrics server.
     baseURL: http://prometheus-server.observability.svc.cluster.local
+
 # Configures and installs the automatic Consul Connect sidecar injector.
 connectInject:
   enabled: true
-    # Enables metrics for Consul Connect sidecars.
-  metrics:
-    defaultEnabled: true
   # Configures and installs the Consul API Gateway.
   apiGateway:
     manageExternalCRDs: true
@@ -56,3 +56,6 @@ connectInject:
       # Defines the type of service created for gateways (e.g. LoadBalancer, ClusterIP, NodePort)
       # LoadBalancer is primarily used for cloud deployments.
       serviceType: LoadBalancer
+  # Enables metrics for Consul Connect sidecars.
+  metrics:
+    defaultEnabled: true
