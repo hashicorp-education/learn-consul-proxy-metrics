@@ -79,21 +79,7 @@ dashboardProviders:
         path: /var/lib/grafana/dashboards/default
 dashboards:
   default:
-    local-dashboard-k8sglobal:
-      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/k8s-views-global.json
-    local-dashboard-k8snamespaces:
-      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/k8s-views-namespaces.json
-    local-dashboard-k8spods:
-      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/k8s-views-pods.json
-    local-dashboard-k8snodes:
-      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/k8s-views-nodes.json
-    local-dashboard-k8sconsul:
-      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/k8s-views-consul-mesh.json
-    hashicups-monitoring:
-      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/hashicups-monitoring.json
-    envoy-performance:
-      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/envoy-performance.json
-    hashicups-health-monitoring:
-      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/hashicups-health-monitoring.json
-    hashicups-performance-monitoring:
-      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/hcp-managed/eks/dashboards/hashicups-performance-monitoring.json
+    health-monitoring:
+      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/dashboards/hashicups-health-monitoring.json
+    performance-monitoring:
+      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/dashboards/hashicups-performance-monitoring.json
