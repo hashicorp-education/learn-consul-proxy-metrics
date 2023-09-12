@@ -866,7 +866,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "HashiCups Health Monitoring",
-  "uid": "hashicups-health",
+  "uid": "data-plane-health",
   "version": 1,
   "weekStart": ""
 }

@@ -717,7 +717,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "HashiCups Performance Monitoring",
-  "uid": "hashicups-performance",
+  "uid": "data-plane-performance",
   "version": 1,
   "weekStart": ""
 }

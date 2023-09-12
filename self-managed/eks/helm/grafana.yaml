@@ -80,6 +80,6 @@ dashboardProviders:
 dashboards:
   default:
     health-monitoring:
-      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/dashboards/hashicups-health-monitoring.json
+      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/dashboards/consul-data-plane-health.json
     performance-monitoring:
-      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/dashboards/hashicups-performance-monitoring.json
+      url: https://raw.githubusercontent.com/hashicorp-education/learn-consul-proxy-metrics/main/dashboards/consul-data-plane-performance.json
