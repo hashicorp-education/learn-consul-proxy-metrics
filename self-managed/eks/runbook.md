@@ -17,7 +17,7 @@ consul catalog services
 consul-k8s upgrade -config-file=helm/consul-v2.yaml
 
 # Redeploy HashiCups with updated proxies
-kubectl delete --filename hashicups/ && kubectl apply --filename hashicups/
+kubectl rollout restart deployment --namespace default
 
 # Go to API gateway URL and explore HashiCups to generate traffic
 export CONSUL_APIGW_ADDR=http://$(kubectl get svc/api-gateway -o json | jq -r '.status.loadBalancer.ingress[0].hostname') && \
