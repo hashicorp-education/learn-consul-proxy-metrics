@@ -22,13 +22,20 @@ global:
     # Enables Consul servers and clients metrics.
     enableAgentMetrics: true
     # Configures the retention time for metrics in Consul servers and clients.
-    agentMetricsRetentionTime: "1m"
+    agentMetricsRetentionTime: "59m"
 
 # Configures values that configure the Consul server cluster.
 server:
   enabled: true
   # The number of server agents to run. This determines the fault tolerance of the cluster.
   replicas: 3
+  resources:
+    requests:
+      memory: "1461Mi"
+      cpu: "500m"
+    limits:
+      memory: "1461Mi"
+      cpu: "1000m"
 
 # Contains values that configure the Consul UI.
 ui:

@@ -20,7 +20,8 @@ resource "helm_release" "prometheus" {
   depends_on = [module.eks.eks_managed_node_groups,
                 module.eks.aws_eks_addon,
                 kubernetes_namespace.observability,
-                module.vpc
+                module.vpc,
+                helm_release.consul
                 ]
 }
 
@@ -39,6 +40,8 @@ resource "helm_release" "grafana" {
   depends_on = [module.eks.eks_managed_node_groups,
                 module.eks.aws_eks_addon,
                 kubernetes_namespace.observability,
-                module.vpc
+                module.vpc,
+                helm_release.consul,
+                helm_release.prometheus
                 ]
 }

@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 10,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -48,8 +47,12 @@
                 "value": null
               },
               {
-                "color": "green",
+                "color": "#EAB839",
                 "value": 5
+              },
+              {
+                "color": "green",
+                "value": 6
               }
             ]
           }
@@ -57,8 +60,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 5,
+        "h": 7,
+        "w": 9,
         "x": 0,
         "y": 0
       },
@@ -83,7 +86,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum(envoy_server_live)",
+          "expr": "sum(envoy_server_live{app!=\"traffic\"})",
           "instant": false,
           "range": true,
           "refId": "A"
@@ -91,106 +94,6 @@
       ],
       "title": "Running HashiCups services",
       "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "index": 2,
-                  "text": "NOT WELL"
-                },
-                "1": {
-                  "index": 1,
-                  "text": "HEALTHY"
-                }
-              },
-              "type": "value"
-            },
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#d44a3a",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 0
-              },
-              {
-                "color": "#299c46",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 5,
-        "y": 0
-      },
-      "id": 69,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "10.0.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "(sum(envoy_cluster_membership_total)-sum(envoy_cluster_membership_healthy)) == bool 0",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Envoy cluster state",
-      "type": "stat"
     },
     {
       "datasource": {
@@ -251,8 +154,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 13,
+        "h": 7,
+        "w": 10,
         "x": 9,
         "y": 0
       },
@@ -366,10 +269,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 8,
+        "h": 8,
+        "w": 9,
         "x": 0,
-        "y": 6
+        "y": 7
       },
       "id": 70,
       "links": [],
@@ -392,9 +295,9 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "code",
+          "editorMode": "builder",
           "exemplar": true,
-          "expr": "sum(envoy_cluster_upstream_cx_active) by (app,envoy_cluster_name)",
+          "expr": "sum by(app, envoy_cluster_name) (envoy_cluster_upstream_cx_active{consul_destination_namespace=\"$namespace\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -465,9 +368,9 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 8,
-        "x": 8,
-        "y": 6
+        "w": 10,
+        "x": 9,
+        "y": 7
       },
       "id": 41,
       "options": {
@@ -477,7 +380,7 @@
             "sum"
           ],
           "displayMode": "table",
-          "placement": "bottom",
+          "placement": "right",
           "showLegend": true,
           "sortBy": "Last",
           "sortDesc": true
@@ -561,21 +464,22 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 14,
-        "w": 6,
-        "x": 16,
-        "y": 6
+        "h": 7,
+        "w": 10,
+        "x": 9,
+        "y": 14
       },
-      "id": 47,
+      "id": 51,
       "options": {
         "legend": {
           "calcs": [
+            "last",
             "sum"
           ],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "sortBy": "Total",
+          "sortBy": "Last",
           "sortDesc": true
         },
         "tooltip": {
@@ -590,13 +494,13 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum by(app, envoy_response_code_class) (increase(envoy_http_downstream_rq_xx{envoy_http_conn_manager_prefix=\"public_listener\", namespace=~\"$namespace\", app=~\"$app\"}[5m]))",
-          "legendFormat": "{{app}}-{{envoy_response_code_class}}xx",
+          "expr": "sum(rate(envoy_http_downstream_rq_xx{envoy_http_conn_manager_prefix=\"public_listener\"}[5m])) by (namespace, app,envoy_response_code_class)\n",
+          "legendFormat": "{{namespace}} : {{app}}-{{envoy_response_code_class}}xx",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "HTTP Status ( $app )",
+      "title": "Downstream Rq by Status Code",
       "type": "timeseries"
     },
     {
@@ -660,9 +564,9 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 8,
+        "w": 9,
         "x": 0,
-        "y": 13
+        "y": 15
       },
       "id": 71,
       "links": [],
@@ -744,8 +648,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -757,22 +660,21 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 8,
-        "y": 13
+        "h": 6,
+        "w": 14,
+        "x": 0,
+        "y": 22
       },
-      "id": 51,
+      "id": 47,
       "options": {
         "legend": {
           "calcs": [
-            "last",
             "sum"
           ],
           "displayMode": "table",
-          "placement": "bottom",
+          "placement": "right",
           "showLegend": true,
-          "sortBy": "Last",
+          "sortBy": "Total",
           "sortDesc": true
         },
         "tooltip": {
@@ -787,13 +689,13 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_http_downstream_rq_xx{envoy_http_conn_manager_prefix=\"public_listener\"}[5m])) by (namespace, app,envoy_response_code_class)\n",
-          "legendFormat": "{{namespace}} : {{app}}-{{envoy_response_code_class}}xx",
+          "expr": "sum by(app, envoy_response_code_class) (increase(envoy_http_downstream_rq_xx{envoy_http_conn_manager_prefix=\"public_listener\", namespace=~\"$namespace\", app=~\"$app\"}[5m]))",
+          "legendFormat": "{{app}}-{{envoy_response_code_class}}xx",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Downstream Rq by Status Code",
+      "title": "HTTP Status ( $app )",
       "type": "timeseries"
     }
   ],
@@ -865,7 +767,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "HashiCups Health Monitoring",
+  "title": "Data Plane Health",
   "uid": "data-plane-health",
   "version": 1,
   "weekStart": ""

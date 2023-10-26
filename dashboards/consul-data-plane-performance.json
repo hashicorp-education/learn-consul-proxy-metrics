@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 15,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -716,7 +716,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "HashiCups Performance Monitoring",
+  "title": "Data Plane Performance",
   "uid": "data-plane-performance",
   "version": 1,
   "weekStart": ""

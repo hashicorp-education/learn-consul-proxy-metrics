@@ -12,15 +12,16 @@ resource "helm_release" "consul" {
   version    = var.consul_chart_version
   chart      = "consul"
   namespace  = "consul"
+  wait       = false
 
   values = [
     templatefile("${path.module}/helm/consul-v1.yaml", {})
   ]
 
-  depends_on = [module.eks.eks_managed_node_groups,
+  depends_on = [module.eks,
+                module.eks.eks_managed_node_groups,
                 kubernetes_namespace.consul,
                 module.eks.aws_eks_addon,
-                kubernetes_namespace.consul,
                 module.vpc
                 ]
 }
@@ -35,7 +36,7 @@ resource "kubectl_manifest" "api_gw" {
   yaml_body = file(element(data.kubectl_filename_list.api_gw_manifests.matches, count.index))
 
 
-  depends_on = [helm_release.consul]
+  depends_on = [helm_release.consul, helm_release.grafana]
 }
 
 locals {

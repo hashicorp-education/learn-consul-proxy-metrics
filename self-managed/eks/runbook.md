@@ -5,6 +5,11 @@ terraform apply --auto-approve
 # Connect to EKS
 aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw kubernetes_cluster_id)
 
+# Ensure all services are up and running successfully
+kubectl get pods --namespace consul && \
+kubectl get pods --namespace observability && \
+kubectl get pods --namespace default
+
 # Set environment variables
 export CONSUL_HTTP_TOKEN=$(kubectl get --namespace consul secrets/consul-bootstrap-acl-token --template={{.data.token}} | base64 -d) && \
 export CONSUL_HTTP_ADDR=https://$(kubectl get services/consul-ui --namespace consul -o jsonpath='{.status.loadBalancer.ingress[0].hostname}') && \
