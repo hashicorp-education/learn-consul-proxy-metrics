@@ -25,6 +25,19 @@ global:
     enableAgentMetrics: true
     # Configures the retention time for metrics in Consul servers and clients.
     agentMetricsRetentionTime: "59m"
+    # Enables Consul Telemetry Collector
+    enableTelemetryCollector: true
+
+# Configures Consul data plane telemetry collector
+telemetryCollector:
+  enabled: true
+  cloud:
+    clientId:
+      secretKey: "client-id"
+      secretName: "consul-hcp-observability-client-id"
+    clientSecret:
+      secretKey: "client-secret"
+      secretName: "consul-hcp-observability-client-secret"
 
 # Configuration for Consul servers when the servers are running outside of Kubernetes.
 externalServers:

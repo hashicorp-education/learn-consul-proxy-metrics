@@ -41,6 +41,7 @@ resource "helm_release" "grafana" {
                 module.eks.aws_eks_addon,
                 kubernetes_namespace.observability,
                 hcp_consul_cluster.main,
-                module.vpc
+                module.vpc,
+                helm_release.prometheus
                 ]
 }

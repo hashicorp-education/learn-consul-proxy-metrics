@@ -29,6 +29,7 @@ resource "helm_release" "consul" {
   version    = var.consul_chart_version
   chart      = "consul"
   namespace  = "consul"
+  wait       = false
 
   values = [
     templatefile("${path.module}/helm/${var.consul_helm_filename}", {
