@@ -58,3 +58,10 @@ spec:
           env:
             - name: NEXT_PUBLIC_PUBLIC_API_URL
               value: "/"
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512M
+            requests:
+              cpu: 500m
+              memory: 512M

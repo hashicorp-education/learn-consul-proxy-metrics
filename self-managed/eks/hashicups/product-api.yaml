@@ -93,3 +93,10 @@ spec:
             - name: config
               mountPath: /config
               readOnly: true
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100M
+            requests:
+              cpu: 100m
+              memory: 100M

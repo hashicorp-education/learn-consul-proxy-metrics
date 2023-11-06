@@ -62,3 +62,10 @@ spec:
               value: "http://product-api:9090"
             - name: PAYMENT_API_URI
               value: "http://payments:1800"
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100M
+            requests:
+              cpu: 100m
+              memory: 100M

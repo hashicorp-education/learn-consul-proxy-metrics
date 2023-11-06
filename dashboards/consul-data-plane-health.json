@@ -86,7 +86,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum(envoy_server_live{app!=\"traffic\"})",
+          "expr": "sum(envoy_server_live{app!=\"traffic-generator\"})",
           "instant": false,
           "range": true,
           "refId": "A"
@@ -397,7 +397,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum by(namespace,app,envoy_response_code_class) (rate(envoy_cluster_upstream_rq_xx[5m]))",
+          "expr": "sum by(namespace,app,envoy_response_code_class) (rate(envoy_cluster_upstream_rq_xx[5m])) ",
           "legendFormat": "{{namespace}} : {{app}}-{{envoy_response_code_class}}xx",
           "range": true,
           "refId": "A"
@@ -591,7 +591,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(envoy_http_downstream_cx_active{app=~\"$app\"}) by (app)",
+          "expr": "sum(envoy_http_downstream_cx_active{app=~\"$app\", app!=\"traffic-generator\"}) by (app)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -648,7 +648,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -735,7 +736,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "All",
           "value": "$__all"
         },
