@@ -397,7 +397,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum by(namespace,app,envoy_response_code_class) (rate(envoy_cluster_upstream_rq_xx[5m])) ",
+          "expr": "sum by(namespace,app,envoy_response_code_class) (rate(envoy_cluster_upstream_rq_xx[5m]))",
           "legendFormat": "{{namespace}} : {{app}}-{{envoy_response_code_class}}xx",
           "range": true,
           "refId": "A"
@@ -464,7 +464,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 10,
         "x": 9,
         "y": 14
@@ -591,7 +591,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(envoy_http_downstream_cx_active{app=~\"$app\", app!=\"traffic-generator\"}) by (app)",
+          "expr": "sum(envoy_http_downstream_cx_active{app=~\"$app\"}) by (app)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
